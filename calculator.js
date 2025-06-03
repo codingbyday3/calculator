@@ -2,6 +2,7 @@ const calculatorDisplay = document.querySelector(".calculator-display")
 let firstInputedDigits = ""
 let inputedOperator = ""
 let secondInputedDigits = ""
+let operatorCount = 0
 
 
 function main(){
@@ -49,6 +50,7 @@ function displayClickedValue(){
   const digitBtns = document.querySelectorAll(".digit")
   const operatorBtns = document.querySelectorAll(".operator")
   const equalBtn = document.querySelector("#equal-btn")
+  const clearBtn = document.querySelector("#clear")
 
   operatorBtns.forEach((operator) =>{
     operator.addEventListener("click", () =>{
@@ -67,14 +69,22 @@ function displayClickedValue(){
     handleEqualClick()
   })
 
-  
+  clearBtn.addEventListener("click", () =>{
+    handleClearClick()
+  })
 
 
 }
 
 let handleOperatorClick = function (operator){
-  calculatorDisplay.textContent += operator.textContent
-  inputedOperator += operator.textContent
+  if (operatorCount !== 0){
+    handleEqualClick()
+  }else{
+    operatorCount++
+    calculatorDisplay.textContent += operator.textContent
+    inputedOperator += operator.textContent
+  }
+  
 }
 
 function handleDigitClick(digitBtn){
@@ -82,22 +92,41 @@ function handleDigitClick(digitBtn){
   if(inputedOperator === ""){
     firstInputedDigits += digitBtn.textContent  
   }else{
-    secondInputedDigits += digitBtn.textContent
+    
+    if (firstInputedDigits === ""){
+      handleClearClick()
+      alert("Operator must come after first number")
+    }else{
+      secondInputedDigits += digitBtn.textContent
+    }
   }
 }
 
 function handleEqualClick(){
-  calculatorDisplay.textContent = operate(
+  if(firstInputedDigits === "" || secondInputedDigits === "" || inputedOperator === ""){
+    handleClearClick()
+    alert("Inputed value is not in right form to calculate")
+  }else{
+    calculatorDisplay.textContent = operate(
     inputedOperator, 
     Number(firstInputedDigits), 
     Number(secondInputedDigits)
-  )
-  firstInputedDigits = calculatorDisplay.textContent
-  inputedOperator = ""
-  secondInputedDigits = ""
+    )
+    firstInputedDigits = calculatorDisplay.textContent
+    inputedOperator = ""
+    operatorCount = 0
+    secondInputedDigits = ""
+  }
+
 }
 
-
+function handleClearClick(){
+  calculatorDisplay.textContent = ""
+  inputedOperator = ""
+  operatorCount = 0
+  secondInputedDigits = ""
+  firstInputedDigits = ""
+}
 
 
 
