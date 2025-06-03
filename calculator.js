@@ -4,6 +4,7 @@ let inputedOperator = ""
 let secondInputedDigits = ""
 let operatorCount = 0
 let calculation = false
+let dotCount = 0
 
 
 function main(){
@@ -36,20 +37,20 @@ function divideNumbers(num1, num2){
 function operate(operator, firstNumber, secondNumber){
   switch(operator){
     case "+":
-      return Math.round(addNumbers(firstNumber, secondNumber))
+      return addNumbers(firstNumber, secondNumber)
 
     case "-":
-      return Math.round(substractNumbers(firstNumber, secondNumber))
+      return substractNumbers(firstNumber, secondNumber)
 
     case "x":
-      return Math.round(multiplyNumbers(firstNumber, secondNumber))
+      return multiplyNumbers(firstNumber, secondNumber)
 
     case "/":
       if(secondNumber === 0){
         alert("You can't divide with zero")
        clearDisplay()
       }else{
-        return Math.round(divideNumbers(firstNumber, secondNumber))
+        return divideNumbers(firstNumber, secondNumber)
       }
   }
 }
@@ -91,24 +92,40 @@ let handleOperatorClick = function (operator){
     operatorCount++
     calculatorDisplay.textContent += operator.textContent
     inputedOperator += operator.textContent
+    dotCount = 0
   }
   
 }
 
 function handleDigitClick(digitBtn){
+  if(dotCount > 0){
+    alert("There can be only one dot")
+    dotCount = 0
+    return;
+  }
   calculatorDisplay.textContent += digitBtn.textContent
   if(inputedOperator === "" && !calculation){
+    if(digitBtn.textContent === ".") {
+      dotCount++ 
+    }
     firstInputedDigits += digitBtn.textContent 
+
   }else if(calculation && inputedOperator === ""){
+    
     firstInputedDigits = digitBtn.textContent
     calculation = false 
     calculatorDisplay.textContent = firstInputedDigits
+
   }else{
     
     if (firstInputedDigits === ""){
-     clearDisplay()
+      clearDisplay()
       alert("Operator must come after first number")
     }else{
+
+      if(digitBtn.textContent === ".") {
+        dotCount++ 
+      }
       secondInputedDigits += digitBtn.textContent
     }
   }
@@ -129,6 +146,7 @@ function displayCalculation(){
     inputedOperator = ""
     operatorCount = 0
     secondInputedDigits = ""
+    dotCount = 0
     calculation = true
   }
 
@@ -141,6 +159,7 @@ function clearDisplay(){
   secondInputedDigits = ""
   firstInputedDigits = ""
   calculation = false
+  dotCount = 0
 }
 
 
