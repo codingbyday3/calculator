@@ -1,10 +1,18 @@
 const calculatorDisplay = document.querySelector(".calculator-display")
+const backspaceBtn = document.querySelector("#backspace")
+const digitBtns = document.querySelectorAll(".digit")
+const operatorBtns = document.querySelectorAll(".operator")
+const equalBtn = document.querySelector("#equal-btn")
+const clearBtn = document.querySelector("#clear")
 let firstInputedDigits = ""
 let inputedOperator = ""
 let secondInputedDigits = ""
 let operatorCount = 0
 let calculation = false
 let dotCount = 0
+let currentState = ""
+
+
 
 
 function main(){
@@ -56,10 +64,6 @@ function operate(operator, firstNumber, secondNumber){
 }
 
 function displayClickedValue(){
-  const digitBtns = document.querySelectorAll(".digit")
-  const operatorBtns = document.querySelectorAll(".operator")
-  const equalBtn = document.querySelector("#equal-btn")
-  const clearBtn = document.querySelector("#clear")
 
   operatorBtns.forEach((operator) =>{
     operator.addEventListener("click", () =>{
@@ -79,9 +83,12 @@ function displayClickedValue(){
   })
 
   clearBtn.addEventListener("click", () =>{
-   clearDisplay()
+    clearDisplay()
   })
 
+  backspaceBtn.addEventListener("click", () =>{
+    handleBackspaceBtn()
+  })
 
 }
 
@@ -93,11 +100,13 @@ let handleOperatorClick = function (operator){
     calculatorDisplay.textContent += operator.textContent
     inputedOperator += operator.textContent
     dotCount = 0
+    currentState = "operator"
   }
   
 }
 
 function handleDigitClick(digitBtn){
+
   if(dotCount > 0 && digitBtn.textContent === "."){
     alert("There can be only one dot")
     dotCount = 0
@@ -108,13 +117,15 @@ function handleDigitClick(digitBtn){
     if(digitBtn.textContent === ".") {
       dotCount++ 
     }
-    firstInputedDigits += digitBtn.textContent 
+    firstInputedDigits += digitBtn.textContent
+    currentState = "first number"
 
   }else if(calculation && inputedOperator === ""){
     
     firstInputedDigits = digitBtn.textContent
     calculation = false 
     calculatorDisplay.textContent = firstInputedDigits
+    currentState = "first number"
 
   }else{
     
@@ -127,6 +138,7 @@ function handleDigitClick(digitBtn){
         dotCount++ 
       }
       secondInputedDigits += digitBtn.textContent
+      currentState = "second number"
     }
   }
   
@@ -162,6 +174,26 @@ function clearDisplay(){
   dotCount = 0
 }
 
+function handleBackspaceBtn(){
+  calculatorDisplay.textContent = calculatorDisplay.textContent.slice(0,-1)
+  
+  switch(currentState){
+      
+    case "first number":
+      firstInputedDigits = firstInputedDigits.slice(0,-1)
+      break
+    case "operator":
+      inputedOperator = inputedOperator.slice(0,-1)
+      operatorCount = 0
+      currentState = "first number"
+      break
+    case "second number":
+      secondInputedDigits = secondInputedDigits.slice(0,-1)
+      if(secondInputedDigits.length === 0){currentState = "operator"}
+      break
+  }
+ 
+}
 
 
 main()

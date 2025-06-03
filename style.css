@@ -41,6 +41,7 @@ main .keyboard{
   gap: 20px;
 }
 
+
 main .keyboard button{
   width: 80px;
   height: 80px;
@@ -49,7 +50,9 @@ main .keyboard button{
   border: none;
   color: #54547d;
   font-size: 20px;
+  
 }
+
 
 #equal-btn:hover,
 main .keyboard button:hover{
