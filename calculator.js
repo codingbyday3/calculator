@@ -26,16 +26,16 @@ function divideNumbers(num1, num2){
 function operate(operator, firstNumber, secondNumber){
   switch(operator){
     case "+":
-      addNumbers(firstNumber, secondNumber)
+      return addNumbers(firstNumber, secondNumber)
 
     case "-":
-      substractNumbers(firstNumber, secondNumber)
+      return substractNumbers(firstNumber, secondNumber)
 
-    case "*":
-      multiplyNumbers(firstNumber, secondNumber)
+    case "x":
+      return multiplyNumbers(firstNumber, secondNumber)
 
     case "/":
-      divideNumbers(firstNumber, secondNumber)
+      return divideNumbers(firstNumber, secondNumber)
   }
 }
 
@@ -43,6 +43,7 @@ function displayClickedValue(){
   const digitBtns = document.querySelectorAll(".digit")
   const calculatorDisplay = document.querySelector(".calculator-display")
   const operatorBtns = document.querySelectorAll(".operator")
+  const equalBtn = document.querySelector("#equal-btn")
   let firstInputedDigits = ""
   let inputedOperator = ""
   let secondInputedDigits = ""
@@ -66,7 +67,10 @@ function displayClickedValue(){
     })
   })
 
-  
+  equalBtn.addEventListener("click", () =>{
+    calculatorDisplay.textContent = operate(inputedOperator, Number(firstInputedDigits), Number(secondInputedDigits))
+  })
+
 
 }
 
