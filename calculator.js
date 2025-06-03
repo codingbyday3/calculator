@@ -3,6 +3,7 @@ let firstInputedDigits = ""
 let inputedOperator = ""
 let secondInputedDigits = ""
 let operatorCount = 0
+let calculation = false
 
 
 function main(){
@@ -27,7 +28,9 @@ function multiplyNumbers(num1, num2){
 }
 
 function divideNumbers(num1, num2){
+
   return num1 / num2
+
 }
 
 function operate(operator, firstNumber, secondNumber){
@@ -42,7 +45,12 @@ function operate(operator, firstNumber, secondNumber){
       return Math.round(multiplyNumbers(firstNumber, secondNumber))
 
     case "/":
-      return Math.round(divideNumbers(firstNumber, secondNumber))
+      if(secondNumber === 0){
+        alert("You can't divide with zero")
+       clearDisplay()
+      }else{
+        return Math.round(divideNumbers(firstNumber, secondNumber))
+      }
   }
 }
 
@@ -66,11 +74,11 @@ function displayClickedValue(){
   })
 
   equalBtn.addEventListener("click", () =>{
-    handleEqualClick()
+    displayCalculation()
   })
 
   clearBtn.addEventListener("click", () =>{
-    handleClearClick()
+   clearDisplay()
   })
 
 
@@ -78,7 +86,7 @@ function displayClickedValue(){
 
 let handleOperatorClick = function (operator){
   if (operatorCount !== 0){
-    handleEqualClick()
+    displayCalculation()
   }else{
     operatorCount++
     calculatorDisplay.textContent += operator.textContent
@@ -89,22 +97,27 @@ let handleOperatorClick = function (operator){
 
 function handleDigitClick(digitBtn){
   calculatorDisplay.textContent += digitBtn.textContent
-  if(inputedOperator === ""){
-    firstInputedDigits += digitBtn.textContent  
+  if(inputedOperator === "" && !calculation){
+    firstInputedDigits += digitBtn.textContent 
+  }else if(calculation && inputedOperator === ""){
+    firstInputedDigits = digitBtn.textContent
+    calculation = false 
+    calculatorDisplay.textContent = firstInputedDigits
   }else{
     
     if (firstInputedDigits === ""){
-      handleClearClick()
+     clearDisplay()
       alert("Operator must come after first number")
     }else{
       secondInputedDigits += digitBtn.textContent
     }
   }
+  
 }
 
-function handleEqualClick(){
+function displayCalculation(){
   if(firstInputedDigits === "" || secondInputedDigits === "" || inputedOperator === ""){
-    handleClearClick()
+    clearDisplay()
     alert("Inputed value is not in right form to calculate")
   }else{
     calculatorDisplay.textContent = operate(
@@ -116,16 +129,18 @@ function handleEqualClick(){
     inputedOperator = ""
     operatorCount = 0
     secondInputedDigits = ""
+    calculation = true
   }
 
 }
 
-function handleClearClick(){
+function clearDisplay(){
   calculatorDisplay.textContent = ""
   inputedOperator = ""
   operatorCount = 0
   secondInputedDigits = ""
   firstInputedDigits = ""
+  calculation = false
 }
 
 
