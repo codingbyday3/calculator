@@ -1,3 +1,9 @@
+const calculatorDisplay = document.querySelector(".calculator-display")
+let firstInputedDigits = ""
+let inputedOperator = ""
+let secondInputedDigits = ""
+
+
 function main(){
   firstInputedNum = ""
   secondInputedNumber = ""
@@ -26,56 +32,71 @@ function divideNumbers(num1, num2){
 function operate(operator, firstNumber, secondNumber){
   switch(operator){
     case "+":
-      return addNumbers(firstNumber, secondNumber)
+      return Math.round(addNumbers(firstNumber, secondNumber))
 
     case "-":
-      return substractNumbers(firstNumber, secondNumber)
+      return Math.round(substractNumbers(firstNumber, secondNumber))
 
     case "x":
-      return multiplyNumbers(firstNumber, secondNumber)
+      return Math.round(multiplyNumbers(firstNumber, secondNumber))
 
     case "/":
-      return divideNumbers(firstNumber, secondNumber)
+      return Math.round(divideNumbers(firstNumber, secondNumber))
   }
 }
 
 function displayClickedValue(){
   const digitBtns = document.querySelectorAll(".digit")
-  const calculatorDisplay = document.querySelector(".calculator-display")
   const operatorBtns = document.querySelectorAll(".operator")
   const equalBtn = document.querySelector("#equal-btn")
-  let firstInputedDigits = ""
-  let inputedOperator = ""
-  let secondInputedDigits = ""
 
   operatorBtns.forEach((operator) =>{
     operator.addEventListener("click", () =>{
-      calculatorDisplay.textContent += operator.textContent
-      inputedOperator += operator.textContent
+      handleOperatorClick(operator)
     })
   })
 
   digitBtns.forEach((digitBtn) =>{
     digitBtn.addEventListener("click", () =>{
-      calculatorDisplay.textContent += digitBtn.textContent
-      if(inputedOperator === ""){
-        firstInputedDigits += digitBtn.textContent  
-      }else{
-        secondInputedDigits += digitBtn.textContent
-      }
+      handleDigitClick(digitBtn)
       
     })
   })
 
   equalBtn.addEventListener("click", () =>{
-    calculatorDisplay.textContent = operate(inputedOperator, Number(firstInputedDigits), Number(secondInputedDigits))
-    firstInputedDigits = calculatorDisplay.textContent
-    inputedOperator = ""
-    secondInputedDigits = ""
+    handleEqualClick()
   })
+
+  
 
 
 }
+
+let handleOperatorClick = function (operator){
+  calculatorDisplay.textContent += operator.textContent
+  inputedOperator += operator.textContent
+}
+
+function handleDigitClick(digitBtn){
+  calculatorDisplay.textContent += digitBtn.textContent
+  if(inputedOperator === ""){
+    firstInputedDigits += digitBtn.textContent  
+  }else{
+    secondInputedDigits += digitBtn.textContent
+  }
+}
+
+function handleEqualClick(){
+  calculatorDisplay.textContent = operate(
+    inputedOperator, 
+    Number(firstInputedDigits), 
+    Number(secondInputedDigits)
+  )
+  firstInputedDigits = calculatorDisplay.textContent
+  inputedOperator = ""
+  secondInputedDigits = ""
+}
+
 
 
 
