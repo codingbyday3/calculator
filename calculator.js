@@ -98,7 +98,7 @@ let handleOperatorClick = function (operator){
 }
 
 function handleDigitClick(digitBtn){
-  if(dotCount > 0){
+  if(dotCount > 0 && digitBtn.textContent === "."){
     alert("There can be only one dot")
     dotCount = 0
     return;
@@ -141,7 +141,7 @@ function displayCalculation(){
     inputedOperator, 
     Number(firstInputedDigits), 
     Number(secondInputedDigits)
-    )
+    ).toFixed(2)
     firstInputedDigits = calculatorDisplay.textContent
     inputedOperator = ""
     operatorCount = 0
