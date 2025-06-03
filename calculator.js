@@ -69,6 +69,9 @@ function displayClickedValue(){
 
   equalBtn.addEventListener("click", () =>{
     calculatorDisplay.textContent = operate(inputedOperator, Number(firstInputedDigits), Number(secondInputedDigits))
+    firstInputedDigits = calculatorDisplay.textContent
+    inputedOperator = ""
+    secondInputedDigits = ""
   })
 
 
