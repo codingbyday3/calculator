@@ -1,9 +1,11 @@
-
+const numbersBtns = document.querySelectorAll(".digit")
+const operatorsBtns = document.querySelectorAll(".operator")
+const calculatorDisplay = document.querySelector(".calculator-display")
 
 function main(){
 
+  displayClickedButton()
 
-  displayClickedValue()
 }
 
 function addNumbers(num1, num2){
@@ -45,6 +47,19 @@ function operate(operator, firstNumber, secondNumber){
   }
 }
 
+function displayClickedButton(){
+  numbersBtns.forEach((number) =>{
+    number.addEventListener("click", () =>{
+      calculatorDisplay.textContent += number.textContent
+    })
+  })
+
+  operatorsBtns.forEach((operator) =>{
+    operator.addEventListener("click", () =>{
+      calculatorDisplay.textContent += operator.textContent
+    })
+  })
+}
 
 
 main()
