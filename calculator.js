@@ -2,14 +2,14 @@ const numbersBtns = document.querySelectorAll(".digit")
 const operatorsBtns = document.querySelectorAll(".operator")
 const calculatorDisplay = document.querySelector(".calculator-display")
 const equalBtn = document.querySelector("#equal-btn")
+let firstNumber = ""
+let secondNumber = ""
+let operator = ""
 
 function main(){
 
   displayClickedButton()
-  
-  equalBtn.addEventListener("click", () =>{
-    sortDisplayedValue()
-  })
+  handleEqualClick()
 
 }
 
@@ -69,9 +69,6 @@ function displayClickedButton(){
 function sortDisplayedValue(){
   let toCalculate = calculatorDisplay.textContent
   const opearators = ["+", "-", "/", "x"]
-  let firstNumber = ""
-  let secondNumber = ""
-  let operator = ""
 
   for(let i = 0; i < toCalculate.length; i++){
     if(opearators.includes(toCalculate[i])){
@@ -83,7 +80,20 @@ function sortDisplayedValue(){
       firstNumber += toCalculate[i]
     }
   }
+  console.log(firstNumber)
 
+}
+
+function handleEqualClick(){
+  equalBtn.addEventListener("click", () =>{
+    sortDisplayedValue()
+    finalResult = operate(
+      operator,
+      Number(firstNumber),
+      Number(secondNumber)
+    )
+
+  })
 }
 
 
