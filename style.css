@@ -33,9 +33,6 @@ main .calculator-display{
 
 }
 
-.calculator-display:hover{
-  cursor: pointer;
-}
 
 .calculator-display #calculator-keyboard-input{
   padding:30px 50px;
