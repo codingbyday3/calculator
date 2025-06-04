@@ -89,6 +89,10 @@ function sortDisplayedValue(){
   dotCount = 0
 
   for(let i = 0; i < toCalculate.length; i++){
+    if(toCalculate[i] === "-" && i === 0){
+      firstNumber += toCalculate[i]
+      continue
+    }
     if(opearators.includes(toCalculate[i])){
       if(operatorCount > 0 && i === toCalculate.length-1){
         calculate()
