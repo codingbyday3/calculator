@@ -113,6 +113,11 @@ function handleEqualClick(){
 }
 
 function calculate(){
+  if(operator === "" || firstNumber === "" || secondNumber === ""){
+    clearDisplay()
+    alert("Inputed value is not in right format to calculate")
+    
+  }
   finalResult = operate(
       operator,
       Number(firstNumber),
