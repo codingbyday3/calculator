@@ -6,7 +6,6 @@ let firstNumber = ""
 let secondNumber = ""
 let operator = ""
 let operatorCount = 0
-let dotCount = 0
 let calculatorState = ""
 
 function main(){
@@ -15,6 +14,7 @@ function main(){
   handleEqualClick()
   handleClearClick()
   handleBackspaceClick()
+
 
 }
 
@@ -78,15 +78,14 @@ function displayClickedButton(){
   })
 }
 
-function sortDisplayedValue(){
-  let toCalculate = calculatorDisplay.textContent.trim()
+function sortValue(toCalculate){
 
   const opearators = ["+", "-", "/", "x"]
   firstNumber = "";
   secondNumber = "";
   operator = "";
   operatorCount = 0;
-  dotCount = 0
+
 
   for(let i = 0; i < toCalculate.length; i++){
     if(toCalculate[i] === "-" && i === 0){
@@ -118,7 +117,8 @@ function sortDisplayedValue(){
 
 function handleEqualClick(){
   equalBtn.addEventListener("click", () =>{
-    sortDisplayedValue()
+    let toCalculate = calculatorDisplay.textContent.trim()
+    sortValue(toCalculate)
     calculate()
     
   })
@@ -165,7 +165,7 @@ function clearDisplay(){
   secondNumber = ""
   operator = ""
   operatorCount = 0
-  dotCount = 0
+ 
   calculatorState = ""
 }
 
@@ -175,5 +175,8 @@ function handleBackspaceClick(){
     calculatorDisplay.textContent = calculatorDisplay.textContent.slice(0,-1)
   })
 }
+
+
+
 
 main()
