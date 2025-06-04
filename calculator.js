@@ -10,6 +10,7 @@ function main(){
 
   displayClickedButton()
   handleEqualClick()
+  handleClearClick()
 
 }
 
@@ -100,5 +101,17 @@ function handleEqualClick(){
   })
 }
 
+function handleClearClick(){
+  const clearBtn = document.querySelector("#clear")
+
+  clearBtn.addEventListener("click", () =>{
+    calculatorDisplay.textContent = ""
+    firstNumber = ""
+    secondNumber = ""
+    operator = ""
+  })
+  
+
+}
 
 main()
