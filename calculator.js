@@ -6,6 +6,7 @@ let firstNumber = ""
 let secondNumber = ""
 let operator = ""
 let operatorCount = 0
+let dotCount = 0
 
 function main(){
 
@@ -47,7 +48,7 @@ function operate(operator, firstNumber, secondNumber){
     case "/":
       if(secondNumber === 0){
         alert("You can't divide with zero")
-       clearDisplay()
+        clearDisplay()
       }else{
         return divideNumbers(firstNumber, secondNumber)
       }
@@ -72,16 +73,16 @@ function displayClickedButton(){
 
 function sortDisplayedValue(){
   let toCalculate = calculatorDisplay.textContent.trim()
-  //console.log(toCalculate, toCalculate.length)
+
   const opearators = ["+", "-", "/", "x"]
   firstNumber = "";
   secondNumber = "";
   operator = "";
   operatorCount = 0;
+  dotCount = 0
 
   for(let i = 0; i < toCalculate.length; i++){
     if(opearators.includes(toCalculate[i])){
-      console.log(i, toCalculate[i])
       if(operatorCount > 0 && i === toCalculate.length-1){
         calculate()
         break
@@ -116,13 +117,20 @@ function calculate(){
   if(operator === "" || firstNumber === "" || secondNumber === ""){
     clearDisplay()
     alert("Inputed value is not in right format to calculate")
-    
+    return
   }
   finalResult = operate(
       operator,
       Number(firstNumber),
       Number(secondNumber)
   )
+  console.log(finalResult)
+  if (isNaN(finalResult)){
+    alert("Inputed value is not in right format to calculate")
+    clearDisplay()
+    return
+
+  }
 
   calculatorDisplay.textContent = finalResult
 
@@ -144,6 +152,7 @@ function clearDisplay(){
   secondNumber = ""
   operator = ""
   operatorCount = 0
+  dotCount = 0
 }
 
 main()
