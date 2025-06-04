@@ -80,7 +80,7 @@ function sortDisplayedValue(){
       firstNumber += toCalculate[i]
     }
   }
-  console.log(firstNumber)
+  console.log(firstNumber, secondNumber, operator)
 
 }
 
@@ -93,6 +93,10 @@ function handleEqualClick(){
       Number(secondNumber)
     )
 
+    calculatorDisplay.textContent = finalResult
+    firstNumber = ""
+    secondNumber = ""
+    operator = ""
   })
 }
 
