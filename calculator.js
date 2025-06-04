@@ -7,6 +7,7 @@ let secondNumber = ""
 let operator = ""
 let operatorCount = 0
 let dotCount = 0
+let calculatorState = ""
 
 function main(){
 
@@ -59,8 +60,11 @@ function operate(operator, firstNumber, secondNumber){
 function displayClickedButton(){
   numbersBtns.forEach((number) =>{
     number.addEventListener("click", () =>{
+      if(calculatorState === "calculated"){
+        clearDisplay()
+        
+      }
       calculatorDisplay.textContent += number.textContent
-
     })
     
   })
@@ -68,6 +72,8 @@ function displayClickedButton(){
   operatorsBtns.forEach((operator) =>{
     operator.addEventListener("click", () =>{
       calculatorDisplay.textContent += operator.textContent
+      calculatorState = ""
+      
     })
   })
 }
@@ -131,8 +137,11 @@ function calculate(){
     return
 
   }
+  finalResult = Math.round(finalResult)
 
   calculatorDisplay.textContent = finalResult
+  calculatorState = "calculated"
+
 
   
 }
@@ -153,6 +162,7 @@ function clearDisplay(){
   operator = ""
   operatorCount = 0
   dotCount = 0
+  calculatorState = ""
 }
 
 function handleBackspaceClick(){
