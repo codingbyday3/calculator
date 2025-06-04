@@ -21,6 +21,7 @@ function main(){
   inputedOperator = ""
 
   displayClickedValue()
+  handleKeyboardInput()
 
 }
 
@@ -197,9 +198,25 @@ function handleBackspaceBtn(){
     dotCount = 0
   }
 
-  
- 
 }
 
+function handleKeyboardInput(){
+
+  calculatorDisplay.addEventListener("click", () =>{
+    createInput()
+  })
+  
+}
+
+function createInput(){
+  const keyboardInput = document.querySelector("#calculator-keyboard-input")
+    if(!keyboardInput){
+      const input = document.createElement("input")
+      input.id = "calculator-keyboard-input"
+      input.autocomplete = "off"
+      calculatorDisplay.appendChild(input)
+    }
+    keyboardInput.focus()
+}
 
 main()

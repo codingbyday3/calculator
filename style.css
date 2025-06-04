@@ -33,6 +33,19 @@ main .calculator-display{
 
 }
 
+.calculator-display:hover{
+  cursor: pointer;
+}
+
+.calculator-display #calculator-keyboard-input{
+  padding:30px 50px;
+  background-color: #1E1E2F;
+  border: none ;
+  color: #FFFFFF;
+  font-size: 30px;
+  text-align: center;
+}
+
 main .keyboard{
   display: flex;
   flex-direction: column;
