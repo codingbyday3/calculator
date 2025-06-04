@@ -192,6 +192,12 @@ function handleBackspaceBtn(){
       if(secondInputedDigits.length === 0){currentState = "operator"}
       break
   }
+
+  if(calculatorDisplay.textContent[calculatorDisplay.textContent.length - 1] === "."){
+    dotCount = 0
+  }
+
+  
  
 }
 
