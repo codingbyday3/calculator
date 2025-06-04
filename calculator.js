@@ -13,6 +13,7 @@ function main(){
   displayClickedButton()
   handleEqualClick()
   handleClearClick()
+  handleBackspaceClick()
 
 }
 
@@ -124,7 +125,6 @@ function calculate(){
       Number(firstNumber),
       Number(secondNumber)
   )
-  console.log(finalResult)
   if (isNaN(finalResult)){
     alert("Inputed value is not in right format to calculate")
     clearDisplay()
@@ -153,6 +153,13 @@ function clearDisplay(){
   operator = ""
   operatorCount = 0
   dotCount = 0
+}
+
+function handleBackspaceClick(){
+  const backspaceBtn = document.querySelector("#backspace")
+  backspaceBtn.addEventListener("click", () =>{
+    calculatorDisplay.textContent = calculatorDisplay.textContent.slice(0,-1)
+  })
 }
 
 main()
