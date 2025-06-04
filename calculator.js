@@ -5,6 +5,7 @@ const equalBtn = document.querySelector("#equal-btn")
 let firstNumber = ""
 let secondNumber = ""
 let operator = ""
+let operatorCount = 0
 
 function main(){
 
@@ -57,7 +58,9 @@ function displayClickedButton(){
   numbersBtns.forEach((number) =>{
     number.addEventListener("click", () =>{
       calculatorDisplay.textContent += number.textContent
+
     })
+    
   })
 
   operatorsBtns.forEach((operator) =>{
@@ -68,12 +71,28 @@ function displayClickedButton(){
 }
 
 function sortDisplayedValue(){
-  let toCalculate = calculatorDisplay.textContent
+  let toCalculate = calculatorDisplay.textContent.trim()
+  //console.log(toCalculate, toCalculate.length)
   const opearators = ["+", "-", "/", "x"]
+  firstNumber = "";
+  secondNumber = "";
+  operator = "";
+  operatorCount = 0;
 
   for(let i = 0; i < toCalculate.length; i++){
     if(opearators.includes(toCalculate[i])){
+      console.log(i, toCalculate[i])
+      if(operatorCount > 0 && i === toCalculate.length-1){
+        calculate()
+        break
+      }else if(operatorCount > 0){
+        alert("Only one operator can be used")
+        clearDisplay()
+        
+        break
+      }
       operator = toCalculate[i]
+      operatorCount++
 
     }else if(operator !== ""){
       secondNumber += toCalculate[i]
@@ -81,37 +100,45 @@ function sortDisplayedValue(){
       firstNumber += toCalculate[i]
     }
   }
-  console.log(firstNumber, secondNumber, operator)
+
 
 }
 
 function handleEqualClick(){
   equalBtn.addEventListener("click", () =>{
     sortDisplayedValue()
-    finalResult = operate(
+    calculate()
+    
+  })
+}
+
+function calculate(){
+  finalResult = operate(
       operator,
       Number(firstNumber),
       Number(secondNumber)
-    )
+  )
 
-    calculatorDisplay.textContent = finalResult
-    firstNumber = ""
-    secondNumber = ""
-    operator = ""
-  })
+  calculatorDisplay.textContent = finalResult
+
+  
 }
 
 function handleClearClick(){
   const clearBtn = document.querySelector("#clear")
 
   clearBtn.addEventListener("click", () =>{
-    calculatorDisplay.textContent = ""
-    firstNumber = ""
-    secondNumber = ""
-    operator = ""
+    clearDisplay()
   })
-  
 
+}
+
+function clearDisplay(){
+  calculatorDisplay.textContent = ""
+  firstNumber = ""
+  secondNumber = ""
+  operator = ""
+  operatorCount = 0
 }
 
 main()
